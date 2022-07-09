@@ -1,3 +1,4 @@
 - The backend will achieve a function to allow courses, so that they can be useful for psychology students.
   - Courses for all the things related to evidence-based practice.
   - It will be a course platform, similar to the Digital House platform.
+- It will be developed using Express, TypeScript, and Sequelize with MySQL.
