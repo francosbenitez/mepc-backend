@@ -1,8 +1,9 @@
 import { Sequelize, Dialect } from "sequelize";
 import config from "../config";
-import { DB } from "../types";
+import { Database } from "../types";
+import { User } from "./User";
 
-const db: DB = {};
+export const db: Database = {};
 
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
   host: config.HOST,
@@ -12,4 +13,6 @@ const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+db.user = User(sequelize, Sequelize);
+
+// module.exports = db;

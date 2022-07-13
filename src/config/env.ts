@@ -1,7 +1,9 @@
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 
 const env = process.env.NODE_ENV;
+
 console.log(`Testing for: ${env}`);
+
 try {
   switch (env) {
     case "undefined":
@@ -11,13 +13,14 @@ try {
       break;
     case "dev":
       dotenv.config({
-        path: `${__dirname}/dev.env`,
+        path: "src/config/dev.env",
       });
       break;
     case "prod":
       dotenv.config({
-        path: `${__dirname}/prod.env`,
+        path: "src/config/prod.env",
       });
+      console.log("process.env.HOST", process.env.HOST);
       break;
     default:
       Error("Unrecognized Environment");

@@ -4,5 +4,5 @@ export default {
   USER: process.env.USERNAME,
   PASSWORD: process.env.PASSWORD,
   DB: process.env.DB,
-  DIALECT: process.env.DIALECT,
+  DIALECT: "mysql",
 };

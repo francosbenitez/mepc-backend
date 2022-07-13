@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "start": "export NODE_ENV=prod && npx tsc && node dist/app.js",
+    "start:dev": "export NODE_ENV=dev && npx tsc && node dist/app.js",
     "lint": "eslint . --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

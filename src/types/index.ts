@@ -1,4 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export type DB = {
+export type Database = {
   [key: string]: any;
 };
