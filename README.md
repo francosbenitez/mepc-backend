@@ -1,11 +1,11 @@
 # MEPC Backend
 
-- Built a server application with Node.
+- The API for [mepc.app]().
 
 ## Code and Resources Used
 
-- **Main Technologies:** TypeScript, Express, MySQL, Sequelize.
+- **Main Technologies:** TypeScript, Express, MySQL, Sequelize
 
 ## Live Demo
 
-- _Soon_
+- [Link]()
