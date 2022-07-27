@@ -2,3 +2,11 @@
   - Courses for all the things related to evidence-based practice.
   - It will be a course platform, similar to the Digital House platform.
 - It will be developed using Express, TypeScript, and Sequelize with MySQL.
+- Check the navbar of "https://blog.logrocket.com/", we could do something similar, like: "MEPC | Blog ... Cursos"
+  - I think the most important feature is the blog, setted up with 'tags' ("psicología clínica", "psicología jurídica", and so on).
+    - Backend structure:
+      - 'users',
+      - 'posts',
+      - 'tags',
+      - 'posts comments',
+      - 
