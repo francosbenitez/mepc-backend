@@ -2,6 +2,7 @@ import { Sequelize, Dialect } from "sequelize";
 import config from "../config";
 import { Database } from "../types";
 import { User } from "./User";
+import { Article } from "./Article";
 
 export const db: Database = {};
 
@@ -14,5 +15,11 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.user = User(sequelize, Sequelize);
+db.article = Article(sequelize, Sequelize);
+
+db.article.belongsTo(db.user, {
+  foreignKey: "authorId",
+  as: "user",
+});
 
 // module.exports = db;
