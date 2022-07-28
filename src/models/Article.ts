@@ -1,4 +1,4 @@
-export const Article = (sequelize, Sequelize) => {
+export const Article = (sequelize: any, Sequelize: any) => {
   const Article = sequelize.define("article", {
     title: {
       type: Sequelize.STRING,

@@ -1,4 +1,4 @@
-export const User = (sequelize, Sequelize) => {
+export const User = (sequelize: any, Sequelize: any) => {
   const User = sequelize.define("user", {
     username: {
       type: Sequelize.STRING,

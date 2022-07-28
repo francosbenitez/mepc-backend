@@ -1,8 +1,8 @@
 import { Sequelize, Dialect } from "sequelize";
-import config from "../config";
+import config from "../config/index.js";
 import { Database } from "../types";
-import { User } from "./User";
-import { Article } from "./Article";
+import { User } from "./User.js";
+import { Article } from "./Article.js";
 
 export const db: Database = {};
 

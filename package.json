@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
+  "type": "module",
   "scripts": {
     "start": "export NODE_ENV=prod && npx tsc && node dist/app.js",
     "start:dev": "export NODE_ENV=dev && npx tsc && node dist/app.js",
@@ -28,9 +29,13 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "@types/sequelize": "^4.28.14",
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
+    "gray-matter": "^4.0.3",
     "mysql2": "^2.3.3",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1",
     "sequelize": "^6.21.3"
   }
 }
