@@ -7,6 +7,7 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
+import routes from "./routes/index.js";
 
 const postsDirectory = path.join(process.cwd(), "contents");
 
@@ -35,6 +36,8 @@ console.log("hello world");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+app.use("/api/", routes);
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db!");
