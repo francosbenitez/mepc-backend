@@ -16,4 +16,9 @@
   - Reviewers (who review the posts made by writes and who access only to writers posts).
   - Admin (who has access to all).
 - The web app should have a 'draft' functionality.
-  
+- Create a seeder:
+  - For a list of basic tags in /tags. 
+  - For basic user.
+  - For common articles.
+  - For common articles users.
+  - For some random articles comments.
