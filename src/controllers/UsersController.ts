@@ -6,9 +6,11 @@ class UsersController {
   async create(req: Request, res: Response) {
     try {
       const user = await User.create(req.body);
-      return res.json({ user, msg: "Successfully create user" });
-    } catch (e) {
-      return res.json({ msg: e, status: 500, route: "/create" });
+      res.send(user);
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to create the user: " + err,
+      });
     }
   }
 }

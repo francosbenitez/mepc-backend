@@ -19,17 +19,21 @@ class ArticlesController {
       }
 
       res.send(articles);
-    } catch (e) {
-      return res.json({ msg: e, status: 500, route: "/index" });
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to get the articles: " + err,
+      });
     }
   }
 
   async create(req: Request, res: Response) {
     try {
       const article = await Article.create(req.body);
-      return res.json({ article, msg: "Successfully create article" });
-    } catch (e) {
-      return res.json({ msg: e, status: 500, route: "/create" });
+      res.send(article);
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to create the article: " + err,
+      });
     }
   }
 }
