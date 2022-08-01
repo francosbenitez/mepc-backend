@@ -36,5 +36,19 @@ class ArticlesController {
       });
     }
   }
+
+  async show(req: Request, res: Response) {
+    try {
+      const { articleId } = req.params;
+      const comments = Article.findByPk(articleId, { include: ["comments"] });
+      res.send(comments);
+    } catch (err) {
+      res.status(500).send({
+        error:
+          "An error has ocurred trying to get all the comments from the article: " +
+          err,
+      });
+    }
+  }
 }
 export default new ArticlesController();

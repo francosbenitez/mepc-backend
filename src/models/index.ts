@@ -56,6 +56,7 @@ db.user.belongsToMany(db.role, {
 db.ROLES = ["admin", "user"];
 
 // O-M
+// we use hasMany() to help one article have many comments, and belongsTo() to indicate that one comment only belongs to one article
 db.article.hasMany(db.comment, { as: "comments" });
 db.comment.belongsTo(db.article, {
   foreignKey: "articleId",
