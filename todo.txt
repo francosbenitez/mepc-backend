@@ -11,4 +11,9 @@
       - 'posts comments',
 - Start developing a simple API: 
   - A web app which allow 'users' writing and publishing posts.
+- The web app will have different roles.
+  - Writers (who only are allowed writing posts).
+  - Reviewers (who review the posts made by writes and who access only to writers posts).
+  - Admin (who has access to all).
+- The web app should have a 'draft' functionality.
   
