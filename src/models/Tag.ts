@@ -4,6 +4,7 @@ export const Tag = (sequelize: any, Sequelize: any) => {
       type: Sequelize.STRING,
       required: true,
       allowNull: false,
+      unique: true,
     },
   });
 
