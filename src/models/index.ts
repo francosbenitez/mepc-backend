@@ -6,6 +6,7 @@ import { Article } from "./Article.js";
 import { Tag } from "./Tag.js";
 import { Comment } from "./Comment.js";
 import { Role } from "./Role.js";
+import { Permission } from "./Permission.js";
 
 export const db: Database = {};
 
@@ -22,42 +23,53 @@ db.article = Article(sequelize, Sequelize);
 db.comment = Comment(sequelize, Sequelize);
 db.tag = Tag(sequelize, Sequelize);
 db.role = Role(sequelize, Sequelize);
+db.permission = Permission(sequelize, Sequelize);
 
-// O-M
+// User
+db.user.belongsTo(db.role, {
+  foreignKey: "roleId",
+});
+
+// Role
+db.role.hasMany(db.user, {
+  foreignKey: "role_id",
+  as: "users",
+});
+db.role.belongsToMany(db.permission, {
+  through: "role_permission",
+  as: "permissions",
+  foreignKey: "roleId",
+});
+
+// Permission
+db.permission.belongsToMany(db.role, {
+  through: "role_permission",
+  as: "roles",
+  foreignKey: "permId",
+});
+
+// Article
 db.article.belongsTo(db.user, {
   foreignKey: "authorId",
   as: "user",
 });
 
-// M-M
 db.article.belongsToMany(db.tag, {
   through: "article_tag",
   as: "tags",
   foreignKey: "article_id",
 });
 
+db.article.hasMany(db.comment, { as: "comments" });
+
+// Tag
 db.tag.belongsToMany(db.article, {
   through: "article_tag",
   as: "articles",
   foreignKey: "tag_id",
 });
 
-// M-M
-db.role.belongsToMany(db.user, {
-  through: "user_role",
-  foreignKey: "roleId",
-  otherKey: "userId",
-});
-db.user.belongsToMany(db.role, {
-  through: "user_role",
-  foreignKey: "userId",
-  otherKey: "roleId",
-});
-db.ROLES = ["admin", "user"];
-
-// O-M
-// we use hasMany() to help one article have many comments, and belongsTo() to indicate that one comment only belongs to one article
-db.article.hasMany(db.comment, { as: "comments" });
+// Comment
 db.comment.belongsTo(db.article, {
   foreignKey: "articleId",
   as: "article",
