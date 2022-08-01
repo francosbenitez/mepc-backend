@@ -32,7 +32,7 @@ db.user.belongsTo(db.role, {
 
 // Role
 db.role.hasMany(db.user, {
-  foreignKey: "role_id",
+  foreignKey: "roleId",
   as: "users",
 });
 db.role.belongsToMany(db.permission, {
