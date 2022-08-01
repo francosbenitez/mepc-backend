@@ -17,6 +17,12 @@ db.Sequelize = Sequelize;
 db.user = User(sequelize, Sequelize);
 db.article = Article(sequelize, Sequelize);
 
+// db.article.hasMany(db.comment, { as: "comments" });
+// db.comment.belongsTo(db.article, {
+//   foreignKey: "articleId",
+//   as: "article",
+// });
+
 db.article.belongsTo(db.user, {
   foreignKey: "authorId",
   as: "user",

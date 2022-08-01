@@ -1,11 +1,11 @@
-export const Article = (sequelize: any, Sequelize: any) => {
-  const Article = sequelize.define("article", {
-    title: {
+export const Comment = (sequelize: any, Sequelize: any) => {
+  const Comment = sequelize.define("comment", {
+    name: {
       type: Sequelize.STRING,
       required: true,
       allowNull: false,
     },
-    content: {
+    text: {
       type: Sequelize.STRING,
       required: true,
       allowNull: false,
@@ -18,5 +18,5 @@ export const Article = (sequelize: any, Sequelize: any) => {
     },
   });
 
-  return Article;
+  return Comment;
 };
