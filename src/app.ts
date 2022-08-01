@@ -9,10 +9,6 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use("/api/", routes);
 
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db!");
-});
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

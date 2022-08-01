@@ -4,8 +4,24 @@ const Article = db.article;
 
 class ArticlesController {
   async index(req: Request, res: Response) {
-    const articles = await Article.findAll();
-    res.send(articles);
+    try {
+      const authorId = req.query.author;
+      let articles = [];
+
+      if (authorId) {
+        articles = await Article.findAll({
+          where: {
+            authorId: authorId,
+          },
+        });
+      } else {
+        articles = await Article.findAll();
+      }
+
+      res.send(articles);
+    } catch (e) {
+      return res.json({ msg: e, status: 500, route: "/index" });
+    }
   }
 
   async create(req: Request, res: Response) {
