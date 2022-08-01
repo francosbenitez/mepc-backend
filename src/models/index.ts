@@ -21,5 +21,3 @@ db.article.belongsTo(db.user, {
   foreignKey: "authorId",
   as: "user",
 });
-
-// module.exports = db;
