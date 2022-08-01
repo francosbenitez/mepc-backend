@@ -40,13 +40,13 @@ class ArticlesController {
   async show(req: Request, res: Response) {
     try {
       const { articleId } = req.params;
-      const comments = Article.findByPk(articleId, { include: ["comments"] });
-      res.send(comments);
+      const article = await Article.findByPk(articleId, {
+        include: ["comments"],
+      });
+      res.send(article);
     } catch (err) {
       res.status(500).send({
-        error:
-          "An error has ocurred trying to get all the comments from the article: " +
-          err,
+        error: "An error has ocurred trying to get the article: " + err,
       });
     }
   }

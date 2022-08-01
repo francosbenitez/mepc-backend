@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/articles", ArticlesController.index);
 router.post("/articles", ArticlesController.create);
-router.get("/articles/1", ArticlesController.show);
+router.get("/articles/:articleId", ArticlesController.show);
 
 router.post("/users", UsersController.create);
 
