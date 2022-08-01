@@ -10,12 +10,6 @@ export const Comment = (sequelize: any, Sequelize: any) => {
       required: true,
       allowNull: false,
     },
-    date: {
-      type: Sequelize.DATE,
-      required: true,
-      allowNull: false,
-      default: Date.now(),
-    },
   });
 
   return Comment;
