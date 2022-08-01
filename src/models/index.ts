@@ -5,6 +5,7 @@ import { User } from "./User.js";
 import { Article } from "./Article.js";
 import { Tag } from "./Tag.js";
 import { Comment } from "./Comment.js";
+import { Role } from "./Role.js";
 
 export const db: Database = {};
 
@@ -20,6 +21,7 @@ db.user = User(sequelize, Sequelize);
 db.article = Article(sequelize, Sequelize);
 db.comment = Comment(sequelize, Sequelize);
 db.tag = Tag(sequelize, Sequelize);
+db.role = Role(sequelize, Sequelize);
 
 // O-M
 db.article.belongsTo(db.user, {
@@ -39,6 +41,19 @@ db.tag.belongsToMany(db.article, {
   as: "articles",
   foreignKey: "tag_id",
 });
+
+// M-M
+db.role.belongsToMany(db.user, {
+  through: "user_role",
+  foreignKey: "roleId",
+  otherKey: "userId",
+});
+db.user.belongsToMany(db.role, {
+  through: "user_role",
+  foreignKey: "userId",
+  otherKey: "roleId",
+});
+db.ROLES = ["admin", "user"];
 
 // O-M
 db.article.hasMany(db.comment, { as: "comments" });
