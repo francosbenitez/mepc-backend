@@ -11,5 +11,6 @@ router.post("/users", UsersController.create);
 
 router.get("/tags", TagsController.index);
 router.post("/tags", TagsController.create);
+router.post("/tags/:tagId/:articleId", TagsController.addArticle);
 
 export default router;

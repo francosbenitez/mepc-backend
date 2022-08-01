@@ -21,11 +21,13 @@ db.article = Article(sequelize, Sequelize);
 db.comment = Comment(sequelize, Sequelize);
 db.tag = Tag(sequelize, Sequelize);
 
+// O-M
 db.article.belongsTo(db.user, {
   foreignKey: "authorId",
   as: "user",
 });
 
+// M-M
 db.article.belongsToMany(db.tag, {
   through: "article_tag",
   as: "tags",
@@ -38,6 +40,7 @@ db.tag.belongsToMany(db.article, {
   foreignKey: "tag_id",
 });
 
+// O-M
 db.article.hasMany(db.comment, { as: "comments" });
 db.comment.belongsTo(db.article, {
   foreignKey: "articleId",

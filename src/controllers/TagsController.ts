@@ -6,7 +6,7 @@ const Article = db.article;
 class TagsController {
   async index(req: Request, res: Response) {
     try {
-      const tags = Tag.findAll({
+      const tags = await Tag.findAll({
         include: [
           {
             model: Article,
@@ -33,6 +33,21 @@ class TagsController {
     } catch (err) {
       res.status(500).send({
         error: "An error has ocurred trying to create the tag: " + err,
+      });
+    }
+  }
+
+  async addArticle(req: Request, res: Response) {
+    try {
+      const { tagId, articleId } = req.params;
+      const tag = await Tag.findByPk(tagId);
+      const article = await Article.findByPk(articleId);
+      await tag.addArticle(article);
+      res.send(tag);
+    } catch (err) {
+      res.status(500).send({
+        error:
+          "An error has ocurred trying to add an article to the tag: " + err,
       });
     }
   }
