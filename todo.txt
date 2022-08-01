@@ -9,4 +9,6 @@
       - 'posts',
       - 'tags',
       - 'posts comments',
-      - 
+- Start developing a simple API: 
+  - A web app which allow 'users' writing and publishing posts.
+  
