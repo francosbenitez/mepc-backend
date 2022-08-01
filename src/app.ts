@@ -1,6 +1,6 @@
 import "./config/env.js";
 import express from "express";
-import { db } from "./models/index.js";
+// import { db } from "./models/index.js";
 import routes from "./routes/index.js";
 
 const app = express();
