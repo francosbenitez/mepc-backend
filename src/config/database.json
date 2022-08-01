@@ -1,0 +1,20 @@
+{
+  "development": {
+    "database": "mepc-db",
+    "host": "localhost",
+    "dialect": "mysql",
+    "username": "root"
+  },
+  "test": {
+    "database": "mepc-db",
+    "host": "localhost",
+    "dialect": "mysql",
+    "username": "root"
+  },
+  "production": {
+    "database": "mepc-db",
+    "host": "localhost",
+    "dialect": "mysql",
+    "username": "root"
+  }
+}
