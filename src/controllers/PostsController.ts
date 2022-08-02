@@ -26,6 +26,17 @@ class PostsController {
       });
     }
   }
+
+  async create(req: Request, res: Response) {
+    try {
+      const article = await Post.create({ data: req.body });
+      res.send(article);
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to create the article: " + err,
+      });
+    }
+  }
 }
 
 export default new PostsController();
