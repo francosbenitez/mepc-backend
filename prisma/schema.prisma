@@ -7,49 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts post[]
+model users {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  username String  @unique
+  password String
+  posts    posts[]
 }
 
-model post {
-  id        Int      @id @default(autoincrement())
+model posts {
+  id        Int          @id @default(autoincrement())
   title     String
   content   String
-  published Boolean  @default(false)
+  published Boolean      @default(false)
   authorId  Int
-  author    user    @relation(fields: [authorId], references: [id])
-  tags      tag_post[]
-  comment   comment?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  author    users        @relation(fields: [authorId], references: [id])
+  tags      tags_posts[]
+  comment   comments?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
-model comment {
+model comments {
   id        Int      @id @default(autoincrement())
   name      String
   text      String
-  post      post     @relation(fields: [postId], references: [id])
+  post      posts    @relation(fields: [postId], references: [id])
   postId    Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model tag {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  posts     tag_post[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model tags {
+  id        Int          @id @default(autoincrement())
+  name      String       @unique
+  posts     tags_posts[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
-model tag_post {
-  post       post     @relation(fields: [postId], references: [id])
-  postId     Int
-  tag   tag @relation(fields: [tagId], references: [id])
-  tagId Int
+model tags_posts {
+  post      posts    @relation(fields: [postId], references: [id])
+  postId    Int
+  tag       tags     @relation(fields: [tagId], references: [id])
+  tagId     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
