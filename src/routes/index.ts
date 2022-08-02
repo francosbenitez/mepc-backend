@@ -7,6 +7,7 @@ import TagsController from "../controllers/TagsController";
 import AuthenticationController from "../controllers/AuthenticationController";
 
 router.post("/register", AuthenticationController.register);
+router.post("/login", AuthenticationController.login);
 
 router.post("/users", UsersController.create);
 

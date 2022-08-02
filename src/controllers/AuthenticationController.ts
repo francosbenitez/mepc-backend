@@ -29,6 +29,41 @@ class AuthenticationController {
       });
     }
   }
+
+  async login(req: Request, res: Response) {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findUnique({
+        where: {
+          email: email,
+        },
+      });
+      if (!user) {
+        return res.status(403).send({
+          error: "The login information was incorrect",
+        });
+      }
+
+      if (user) {
+        const equals = bcrypt.compareSync(password, user.password);
+        if (equals) {
+          const userJson = JSON.parse(JSON.stringify(user));
+          res.send({
+            user: userJson,
+            token: jwtSignUser(userJson),
+          });
+        } else {
+          res.json({ error: "An error has ocurred with user and/or password" });
+        }
+      } else {
+        res.json({ error: "An error has ocurred with user and/or password" });
+      }
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to log in",
+      });
+    }
+  }
 }
 
 export default new AuthenticationController();
