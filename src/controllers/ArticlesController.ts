@@ -6,18 +6,22 @@ const Article = prisma.articles;
 class ArticlesController {
   async index(req: Request, res: Response) {
     try {
-      // const authorId = req.query.author;
+      const authorId =
+        req.query && typeof req.query.author === "string"
+          ? parseInt(req.query.author)
+          : "";
       let articles = [];
 
-      // if (authorId) {
-      //   articles = await Article.findMany({
-      //     where: {
-      //       authorId: authorId,
-      //     },
-      //   });
-      // } else {
-      articles = await Article.findMany();
-      // }
+      if (authorId) {
+        console.log("authorId", authorId);
+        articles = await Article.findMany({
+          where: {
+            authorId: authorId,
+          },
+        });
+      } else {
+        articles = await Article.findMany();
+      }
 
       res.send(articles);
     } catch (err) {
