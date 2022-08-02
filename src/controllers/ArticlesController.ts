@@ -40,6 +40,28 @@ class ArticlesController {
       });
     }
   }
+
+  async show(req: Request, res: Response) {
+    try {
+      const articleId = parseInt(req.params.articleId);
+      const article = await Article.findUnique({
+        where: {
+          id: articleId,
+        },
+        include: {
+          comment: true,
+        },
+      });
+      // const article = await Article.findByPk(articleId, {
+      //   include: ["comments"],
+      // });
+      res.send(article);
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to get the article: " + err,
+      });
+    }
+  }
 }
 
 export default new ArticlesController();
