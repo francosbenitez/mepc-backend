@@ -22,3 +22,5 @@
   - For common articles.
   - For common articles users.
   - For some random articles comments.
+- Change Sequelize ORM for Prisma ORM.
+  - Given that Prisma has better support for TypeScript.

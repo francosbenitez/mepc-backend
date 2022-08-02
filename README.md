@@ -4,7 +4,7 @@
 
 ## Code and Resources Used
 
-- **Main Technologies:** TypeScript, Express, MySQL, Sequelize
+- **Main Technologies:** TypeScript, Express, MySQL, Prisma
 
 ## Live Demo
 
