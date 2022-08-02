@@ -10,7 +10,17 @@ class TagsController {
     try {
       const tags = await Tag.findMany({
         include: {
-          articles: true,
+          articles: {
+            select: {
+              article: {
+                select: {
+                  id: true,
+                  title: true,
+                  content: true,
+                },
+              },
+            },
+          },
         },
         // include: [
         //   {
