@@ -52,9 +52,6 @@ class ArticlesController {
           comment: true,
         },
       });
-      // const article = await Article.findByPk(articleId, {
-      //   include: ["comments"],
-      // });
       res.send(article);
     } catch (err) {
       res.status(500).send({

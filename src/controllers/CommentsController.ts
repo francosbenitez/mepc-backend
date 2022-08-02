@@ -18,7 +18,6 @@ class CommentsController {
   async index(req: Request, res: Response) {
     try {
       const comments = await Comment.findMany({
-        // include: ["article"],
         include: {
           article: true,
         },
