@@ -13,7 +13,6 @@ class ArticlesController {
       let articles = [];
 
       if (authorId) {
-        console.log("authorId", authorId);
         articles = await Article.findMany({
           where: {
             authorId: authorId,
