@@ -5,8 +5,13 @@ import UsersController from "../controllers/UsersController";
 import CommentsController from "../controllers/CommentsController";
 import TagsController from "../controllers/TagsController";
 import AuthenticationController from "../controllers/AuthenticationController";
+import AuthenticationControllerPolicy from "../policies/AuthenticationControllerPolicy";
 
-router.post("/register", AuthenticationController.register);
+router.post(
+  "/register",
+  AuthenticationControllerPolicy.register,
+  AuthenticationController.register
+);
 router.post("/login", AuthenticationController.login);
 
 router.post("/users", UsersController.create);
