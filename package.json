@@ -1,0 +1,21 @@
+{
+  "name": "mepc-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.1.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.6.3",
+    "prisma": "^4.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
+}
