@@ -1,35 +1,35 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-const Post = prisma.posts;
+const Article = prisma.articles;
 
-class PostsController {
+class ArticlesController {
   async index(req: Request, res: Response) {
     try {
       // const authorId = req.query.author;
-      let posts = [];
+      let articles = [];
 
       // if (authorId) {
-      //   posts = await Post.findMany({
+      //   articles = await Article.findMany({
       //     where: {
       //       authorId: authorId,
       //     },
       //   });
       // } else {
-      posts = await Post.findMany();
+      articles = await Article.findMany();
       // }
 
-      res.send(posts);
+      res.send(articles);
     } catch (err) {
       res.status(500).send({
-        error: "An error has ocurred trying to get the posts: " + err,
+        error: "An error has ocurred trying to get the articles: " + err,
       });
     }
   }
 
   async create(req: Request, res: Response) {
     try {
-      const article = await Post.create({ data: req.body });
+      const article = await Article.create({ data: req.body });
       res.send(article);
     } catch (err) {
       res.status(500).send({
@@ -39,4 +39,4 @@ class PostsController {
   }
 }
 
-export default new PostsController();
+export default new ArticlesController();

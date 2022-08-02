@@ -8,51 +8,51 @@ datasource db {
 }
 
 model users {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  username String  @unique
+  id       Int        @id @default(autoincrement())
+  email    String     @unique
+  username String     @unique
   password String
-  posts    posts[]
+  articles articles[]
 }
 
-model posts {
-  id        Int          @id @default(autoincrement())
+model articles {
+  id        Int             @id @default(autoincrement())
   title     String
   content   String
-  published Boolean      @default(false)
+  published Boolean         @default(false)
   authorId  Int
-  author    users        @relation(fields: [authorId], references: [id])
-  tags      tags_posts[]
+  author    users           @relation(fields: [authorId], references: [id])
+  tags      tags_articles[]
   comment   comments?
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
 }
 
 model comments {
   id        Int      @id @default(autoincrement())
   name      String
   text      String
-  post      posts    @relation(fields: [postId], references: [id])
-  postId    Int      @unique
+  article   articles @relation(fields: [articleId], references: [id])
+  articleId Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model tags {
-  id        Int          @id @default(autoincrement())
-  name      String       @unique
-  posts     tags_posts[]
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  id        Int             @id @default(autoincrement())
+  name      String          @unique
+  articles  tags_articles[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
 }
 
-model tags_posts {
-  post      posts    @relation(fields: [postId], references: [id])
-  postId    Int
+model tags_articles {
+  article   articles @relation(fields: [articleId], references: [id])
+  articleId Int
   tag       tags     @relation(fields: [tagId], references: [id])
   tagId     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@id([postId, tagId])
+  @@id([articleId, tagId])
 }

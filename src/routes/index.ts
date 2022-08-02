@@ -1,11 +1,11 @@
 import express from "express";
 const router = express.Router();
-import PostsController from "../controllers/PostsController";
+import ArticlesController from "../controllers/ArticlesController";
 import UsersController from "../controllers/UsersController";
 
 router.post("/users", UsersController.create);
 
-router.get("/posts", PostsController.index);
-router.post("/posts", PostsController.create);
+router.get("/articles", ArticlesController.index);
+router.post("/articles", ArticlesController.create);
 
 export default router;
