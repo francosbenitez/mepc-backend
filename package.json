@@ -2,7 +2,8 @@
   "name": "mepc-backend",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "start:dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.1.1",
