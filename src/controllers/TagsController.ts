@@ -8,9 +8,9 @@ const TagsArticles = prisma.tags_articles;
 class TagsController {
   async index(req: Request, res: Response) {
     try {
-      const tags = await TagsArticles.findMany({
+      const tags = await Tag.findMany({
         include: {
-          article: true,
+          articles: true,
         },
         // include: [
         //   {
@@ -46,24 +46,10 @@ class TagsController {
     try {
       const tagId = parseInt(req.params.tagId);
       const articleId = parseInt(req.params.articleId);
-      const tag = await Tag.findUnique({ where: { id: tagId } });
-      // const article = await Article.findUnique({ where: { id: articleId } });
-      // await tag.addArticle(article);
-      await TagsArticles.create({
-        data: {
-          tag: {
-            connect: {
-              id: articleId,
-            },
-          },
-          article: {
-            connect: {
-              id: tagId,
-            },
-          },
-        },
+      const articleAdded = await TagsArticles.create({
+        data: { tagId, articleId },
       });
-      res.send(tag);
+      res.send(articleAdded);
     } catch (err) {
       res.status(500).send({
         error:
