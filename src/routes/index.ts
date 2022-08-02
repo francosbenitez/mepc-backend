@@ -4,6 +4,9 @@ import ArticlesController from "../controllers/ArticlesController";
 import UsersController from "../controllers/UsersController";
 import CommentsController from "../controllers/CommentsController";
 import TagsController from "../controllers/TagsController";
+import AuthenticationController from "../controllers/AuthenticationController";
+
+router.post("/register", AuthenticationController.register);
 
 router.post("/users", UsersController.create);
 
