@@ -7,35 +7,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model user {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-  posts Post[]
+  posts post[]
 }
 
-model Post {
+model post {
   id        Int      @id @default(autoincrement())
   title     String
   content   String
   published Boolean  @default(false)
+  authorId  Int
+  author    user    @relation(fields: [authorId], references: [id])
+  tags      tag_post[]
+  comment   comment?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  authorId  Int
-  author    User    @relation(fields: [authorId], references: [id])
 }
 
-model Comment {
+model comment {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   name      String
   text      String
-}
-
-model Tag {
-  id        Int      @id @default(autoincrement())
+  post      post     @relation(fields: [postId], references: [id])
+  postId    Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model tag {
+  id        Int      @id @default(autoincrement())
   name      String   @unique
+  posts     tag_post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model tag_post {
+  post       post     @relation(fields: [postId], references: [id])
+  postId     Int
+  tag   tag @relation(fields: [tagId], references: [id])
+  tagId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([postId, tagId])
 }
