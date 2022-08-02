@@ -8,11 +8,12 @@ datasource db {
 }
 
 model users {
-  id       Int        @id @default(autoincrement())
-  email    String     @unique
-  username String     @unique
+  id       Int           @id @default(autoincrement())
+  email    String        @unique
+  username String        @unique
   password String
   articles articles[]
+  roles    roles_users[]
 }
 
 model articles {
@@ -55,4 +56,41 @@ model tags_articles {
   updatedAt DateTime @updatedAt
 
   @@id([articleId, tagId])
+}
+
+model permissions {
+  id          Int                 @id @default(autoincrement())
+  name        String
+  description String
+  roles       roles_permissions[]
+}
+
+model roles {
+  id          Int                 @id @default(autoincrement())
+  name        String
+  description String
+  users       roles_users[]
+  roles       roles_permissions[]
+}
+
+model roles_permissions {
+  permission   permissions @relation(fields: [permissionId], references: [id])
+  permissionId Int
+  role         roles       @relation(fields: [roleId], references: [id])
+  roleId       Int
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@id([permissionId, roleId])
+}
+
+model roles_users {
+  user      users    @relation(fields: [userId], references: [id])
+  userId    Int
+  role      roles    @relation(fields: [roleId], references: [id])
+  roleId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, roleId])
 }
