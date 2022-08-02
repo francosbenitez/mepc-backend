@@ -22,16 +22,6 @@ class TagsController {
             },
           },
         },
-        // include: [
-        //   {
-        //     model: Article,
-        //     as: "articles",
-        //     attributes: ["id", "title", "content"],
-        //     through: {
-        //       attributes: [],
-        //     },
-        //   },
-        // ],
       });
       res.send(tags);
     } catch (err) {
