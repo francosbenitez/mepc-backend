@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-const Article = prisma.articles;
+// const Article = prisma.articles;
 const Tag = prisma.tags;
 const TagsArticles = prisma.tags_articles;
 
 class TagsController {
   async index(req: Request, res: Response) {
     try {
-      const tags = await Tag.findMany({
+      const tags = await TagsArticles.findMany({
         include: {
-          articles: true,
+          article: true,
         },
         // include: [
         //   {
