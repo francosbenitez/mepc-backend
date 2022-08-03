@@ -24,88 +24,95 @@ export default (permission: any) =>
       },
     });
 
-    const user = await User.findUnique({
-      where: {
-        id: req.user?.id,
-      },
-      include: {
-        roles: {
-          select: {
-            role: {
-              select: {
-                id: true,
-              },
-            },
-          },
-        },
-      },
-    });
+    // const user = await User.findUnique({
+    //   where: {
+    //     id: req.user?.id,
+    //   },
+    //   include: {
+    //     roles: {
+    // select: {
+    //   role: {
+    //     select: {
+    //       id: true,
+    //     },
+    //   },
+    // },
+    //     },
+    //   },
+    // });
 
-    console.log("user", user);
-    console.log("user.roles", user?.roles);
-    console.log("user.roles[0].role.id", user?.roles[0].role.id);
+    // console.log("user", user);
+    // console.log("user.roles", user?.roles);
+    // console.log("user.roles[0].role.id", user?.roles[0].role.id);
 
     // Check if the roleId = 1 has the required permissions
-    const getPermissionsBasedOnRole = await Permission.findMany({
-      where: {
-        id: user?.roles[0].role.id,
-      },
-      // include: {
-      //   permissions: {
-      //     select: {
-      //       permission: {
-      //         select: {
-      //           id: true,
-      //         },
-      //       },
-      //     },
-      //   },
-      // },
-    });
+    // const getPermissionsBasedOnRole = await Permission.findMany({
+    //   where: {
+    //     id: user?.roles[0].role.id,
+    //   },
+    // include: {
+    //   permissions: {
+    //     select: {
+    //       permission: {
+    //         select: {
+    //           id: true,
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
+    // });
 
-    const getPermissions = await Permission.findMany();
+    // const getPermissions = await Permission.findMany();
 
-    console.log("getPermissions", getPermissions);
-    console.log("getPermissionsBasedOnRole", getPermissionsBasedOnRole);
-    console.log("permission", permission);
+    // console.log("getPermissions", getPermissions);
+    // console.log("getPermissionsBasedOnRole", getPermissionsBasedOnRole);
+    // console.log("permission", permission);
 
-    // async function hasPermission(permission: any) {
-    //   if (!permission || permission === "undefined") {
-    //     return false;
-    //   }
-    //   const permissions = await Permission.findMany();
-    //   return !!permissions
-    //     .map(({ name }: { name: any }) => name)
-    //     .includes(permission.name);
-    // }
+    async function hasPermission(permission: any) {
+      if (!permission || permission === "undefined") {
+        return false;
+      }
+      const permissions = await Permission.findMany();
 
-    // async function hasPermissionThroughRole(permission: any) {
-    //   if (!permission || permission === "undefined") {
-    //     return false;
-    //   }
-    //   const roles = await Role.findMany();
-    //   for await (const item of permission.roles) {
-    //     if (roles.filter((role) => role.name === item.name).length > 0) {
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // }
+      const result = !!permissions
+        .map(({ name }: { name: any }) => name)
+        .includes(permission.name);
 
-    // async function hasPermissionTo(permission: any) {
-    //   if (!permission || permission === "undefined") {
-    //     return false;
-    //   }
-    //   return (
-    //     (await hasPermissionThroughRole(permission)) ||
-    //     hasPermission(permission)
-    //   );
-    // }
+      return result;
+    }
 
-    // if (await hasPermissionTo(access)) {
-    //   return next();
-    // }
-    console.error("You do not have the authorization to access this.");
+    async function hasPermissionThroughRole(permission: any) {
+      if (!permission || permission === "undefined") {
+        return false;
+      }
+      const roles = await Role.findMany();
+      for await (const item of permission.roles) {
+        if (
+          roles.filter((role) => {
+            role.name === item.role.name;
+          }).length > 0
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    async function hasPermissionTo(permission: any) {
+      if (!permission || permission === "undefined") {
+        return false;
+      }
+      return (
+        (await hasPermissionThroughRole(permission)) ||
+        hasPermission(permission)
+      );
+    }
+
+    if (await hasPermissionTo(access)) {
+      return next();
+    }
+
     return sendErrorResponse(
       res,
       403,
