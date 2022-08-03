@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { roleData } from "./roles";
 import { permissionData } from "./permissions";
 import Constants from "../../src/utils/constants";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -31,7 +32,7 @@ async function main() {
     data: {
       username: "admin",
       email: "admin@email.com",
-      password: "password",
+      password: bcrypt.hashSync("password", 10),
     },
   });
 

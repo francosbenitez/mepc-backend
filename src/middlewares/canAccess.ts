@@ -24,6 +24,7 @@ export default (permission: any) =>
     });
 
     console.log("access", access);
+    console.log("access.roles", access?.roles);
 
     async function hasPermission(permission: any) {
       if (!permission || permission === "undefined") {
