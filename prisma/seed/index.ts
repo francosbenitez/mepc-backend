@@ -50,19 +50,20 @@ async function main() {
     },
   });
 
-  console.log("superAdminUser", superAdminUser);
-  console.log("superAdminRole", superAdminRole);
-  console.log("superAdminPermissions", superAdminPermissions);
-
-  // const articleAdded = await prisma.tags_articles.create({
-  //   data: { 1, 1 },
-  // });
-
-  // await prisma.roles_permissions.create({
-  //   data: {
-  //     superAdminUser.id, superAdminPermissions.id
-  //   }
-  // })
+  await prisma.roles_users.create({
+    data: {
+      role: {
+        connect: {
+          id: superAdminRole?.id,
+        },
+      },
+      user: {
+        connect: {
+          id: superAdminUser.id,
+        },
+      },
+    },
+  });
 
   console.log(`Seeding finished.`);
 }
