@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import type { Request, Response, NextFunction } from "express";
 const prisma = new PrismaClient();
 const Permission = prisma.permissions;
-// const Role = prisma.roles;
+const Role = prisma.roles;
 
 export default (permission: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
@@ -20,15 +20,43 @@ export default (permission: any) =>
             },
           },
         },
-        // {
-        //   attributes: ["id", "name"],
-        //   model: Role,
-        //   as: "roles",
-        //   through: { attributes: [] },
-        // },
       },
     });
-    if (await req.userData.hasPermissionTo(access)) {
+
+    async function hasPermission(permission: any) {
+      if (!permission || permission === "undefined") {
+        return false;
+      }
+      const permissions = await Permission.findMany();
+      return !!permissions
+        .map(({ name }: { name: any }) => name)
+        .includes(permission.name);
+    }
+
+    async function hasPermissionThroughRole(permission: any) {
+      if (!permission || permission === "undefined") {
+        return false;
+      }
+      const roles = await Role.findMany();
+      for await (const item of permission.roles) {
+        if (roles.filter((role) => role.name === item.name).length > 0) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    async function hasPermissionTo(permission: any) {
+      if (!permission || permission === "undefined") {
+        return false;
+      }
+      return (
+        (await hasPermissionThroughRole(permission)) ||
+        hasPermission(permission)
+      );
+    }
+
+    if (await req.user.hasPermissionTo(access)) {
       return next();
     }
     console.error("You do not have the authorization to access this.");
