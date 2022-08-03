@@ -53,7 +53,7 @@ export default (permission: any) =>
       (user) => user.permission.name === permission
     );
 
-    if (await hasUserPermission) {
+    if (hasUserPermission) {
       return next();
     }
 
