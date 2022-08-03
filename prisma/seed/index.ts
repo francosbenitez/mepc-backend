@@ -65,6 +65,23 @@ async function main() {
     },
   });
 
+  for (const permission of superAdminPermissions) {
+    await prisma.roles_permissions.create({
+      data: {
+        permission: {
+          connect: {
+            id: permission.id,
+          },
+        },
+        role: {
+          connect: {
+            id: superAdminRole?.id,
+          },
+        },
+      },
+    });
+  }
+
   console.log(`Seeding finished.`);
 }
 
