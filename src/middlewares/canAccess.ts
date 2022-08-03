@@ -56,7 +56,6 @@ export default (permission: any) =>
           select: {
             permission: {
               select: {
-                // id: true,
                 name: true,
               },
             },
@@ -65,10 +64,13 @@ export default (permission: any) =>
       },
     });
 
-    console.log(
-      "userRolePermissions[0].permissions",
-      userRolePermissions[0].permissions
+    const userPermissions = userRolePermissions[0].permissions;
+
+    const hasUserPermission = userPermissions.some(
+      (user) => user.permission.name === permission
     );
+
+    console.log("hasUserPermission()", hasUserPermission);
 
     async function hasPermission(permission: any) {
       if (!permission || permission === "undefined") {
