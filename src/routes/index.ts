@@ -1,31 +1,18 @@
 import express from "express";
-const router = express.Router();
-import ArticlesController from "../controllers/ArticlesController";
-import UsersController from "../controllers/UsersController";
-import CommentsController from "../controllers/CommentsController";
-import TagsController from "../controllers/TagsController";
-import AuthenticationController from "../controllers/AuthenticationController";
-import AuthenticationControllerPolicy from "../policies/AuthenticationControllerPolicy";
-import isAuthenticated from "../policies/isAuthenticated";
+// import { sendErrorResponse } from "../utils/sendResponse";
+import articlesRouter from "./articlesRouter";
+import authRouter from "./authRouter";
+import commentsRouter from "./commentsRouter";
+import tagsRouter from "./tagsRouter";
 
-router.post(
-  "/register",
-  AuthenticationControllerPolicy.register,
-  AuthenticationController.register
-);
-router.post("/login", AuthenticationController.login);
+export default (app: any) => {
+  // app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
 
-router.post("/users", UsersController.create);
+  app.use("/api", authRouter);
+  app.use("/api", articlesRouter);
+  app.use("/api", commentsRouter);
+  app.use("/api", tagsRouter);
 
-router.get("/articles", isAuthenticated, ArticlesController.index);
-router.post("/articles", ArticlesController.create);
-router.get("/articles/:articleId", ArticlesController.show);
-
-router.post("/comments", CommentsController.create);
-router.get("/comments", CommentsController.index);
-
-router.get("/tags", TagsController.index);
-router.post("/tags", TagsController.create);
-router.post("/tags/:tagId/:articleId", TagsController.addArticle);
-
-export default router;
+  // app.all('*', (req, res) => sendErrorResponse(res, 404, 'Route does not exist'));
+};
