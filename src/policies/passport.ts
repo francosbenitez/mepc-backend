@@ -1,12 +1,10 @@
-const passport = require("passport");
-// const db = require("./models");
-// const config = require("./config");
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-// const User = db.user;
+import passport from "passport";
+import passportJwt from "passport-jwt";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const User = prisma.users;
+const JwtStrategy = passportJwt.Strategy;
+const ExtractJwt = passportJwt.ExtractJwt;
 
 passport.use(
   new JwtStrategy(
@@ -31,5 +29,3 @@ passport.use(
     }
   )
 );
-
-// module.exports = null;
