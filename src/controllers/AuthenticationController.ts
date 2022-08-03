@@ -18,7 +18,7 @@ class AuthenticationController {
       req.body.password = bcrypt.hashSync(req.body.password, 10);
       const user = await User.create({ data: req.body });
       const userJson = JSON.parse(JSON.stringify(user));
-      console.log("userJson", userJson);
+      // console.log("userJson", userJson);
       res.send({
         user: userJson,
         token: jwtSignUser(userJson),
