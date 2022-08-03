@@ -56,7 +56,7 @@ export default (permission: any) =>
       );
     }
 
-    if (await req.user.hasPermissionTo(access)) {
+    if (await hasPermissionTo(access)) {
       return next();
     }
     console.error("You do not have the authorization to access this.");
