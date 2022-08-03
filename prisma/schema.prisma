@@ -60,7 +60,7 @@ model tags_articles {
 
 model permissions {
   id          Int                 @id @default(autoincrement())
-  name        String
+  name        String              @unique
   description String
   roles       roles_permissions[]
 }
