@@ -6,6 +6,7 @@ import CommentsController from "../controllers/CommentsController";
 import TagsController from "../controllers/TagsController";
 import AuthenticationController from "../controllers/AuthenticationController";
 import AuthenticationControllerPolicy from "../policies/AuthenticationControllerPolicy";
+import isAuthenticated from "../policies/isAuthenticated";
 
 router.post(
   "/register",
@@ -16,7 +17,7 @@ router.post("/login", AuthenticationController.login);
 
 router.post("/users", UsersController.create);
 
-router.get("/articles", ArticlesController.index);
+router.get("/articles", isAuthenticated, ArticlesController.index);
 router.post("/articles", ArticlesController.create);
 router.get("/articles/:articleId", ArticlesController.show);
 
