@@ -4,7 +4,7 @@ import type { Request, Response, NextFunction } from "express";
 const prisma = new PrismaClient();
 const Permission = prisma.permissions;
 const Role = prisma.roles;
-// const User = prisma.users;
+const User = prisma.users;
 
 export default (permission: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
@@ -24,24 +24,24 @@ export default (permission: any) =>
       },
     });
 
-    // const user = await User.findUnique({
-    //   where: {
-    //     id: req.user?.id,
-    //   },
-    //   include: {
-    //     roles: {
-    // select: {
-    //   role: {
-    //     select: {
-    //       id: true,
-    //     },
-    //   },
-    // },
-    //     },
-    //   },
-    // });
+    const user = await User.findUnique({
+      where: {
+        id: req.user?.id,
+      },
+      include: {
+        roles: {
+          select: {
+            role: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
-    // console.log("user", user);
+    console.log("user", user);
     // console.log("user.roles", user?.roles);
     // console.log("user.roles[0].role.id", user?.roles[0].role.id);
 
@@ -78,6 +78,8 @@ export default (permission: any) =>
       const result = !!permissions
         .map(({ name }: { name: any }) => name)
         .includes(permission.name);
+
+      console.log("result", result);
 
       return result;
     }
