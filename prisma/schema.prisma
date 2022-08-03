@@ -70,7 +70,7 @@ model roles {
   name        String              @unique
   description String
   users       roles_users[]
-  roles       roles_permissions[]
+  permissions roles_permissions[]
 }
 
 model roles_permissions {

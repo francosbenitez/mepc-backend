@@ -24,6 +24,9 @@ export default (permission: any) =>
       },
     });
 
+    // 1. We have to check if this user, who is provided by `req.user`, has permissions to the `permission` argument provided from the `routes` folder
+    // The `roles` works an intermediary between `users` and `permissions`
+    // 2. We have to access to the permissions of the user via the `roles_permissions` model
     const user = await User.findUnique({
       where: {
         id: req.user?.id,
@@ -41,33 +44,31 @@ export default (permission: any) =>
       },
     });
 
-    console.log("user", user);
-    // console.log("user.roles", user?.roles);
-    // console.log("user.roles[0].role.id", user?.roles[0].role.id);
+    const userRoleId = user?.roles[0].role.id;
 
-    // Check if the roleId = 1 has the required permissions
-    // const getPermissionsBasedOnRole = await Permission.findMany({
-    //   where: {
-    //     id: user?.roles[0].role.id,
-    //   },
-    // include: {
-    //   permissions: {
-    //     select: {
-    //       permission: {
-    //         select: {
-    //           id: true,
-    //         },
-    //       },
-    //     },
-    //   },
-    // },
-    // });
+    // What permissions does the user have?
+    const userRolePermissions = await Role.findMany({
+      where: {
+        id: userRoleId,
+      },
+      include: {
+        permissions: {
+          select: {
+            permission: {
+              select: {
+                // id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
-    // const getPermissions = await Permission.findMany();
-
-    // console.log("getPermissions", getPermissions);
-    // console.log("getPermissionsBasedOnRole", getPermissionsBasedOnRole);
-    // console.log("permission", permission);
+    console.log(
+      "userRolePermissions[0].permissions",
+      userRolePermissions[0].permissions
+    );
 
     async function hasPermission(permission: any) {
       if (!permission || permission === "undefined") {
