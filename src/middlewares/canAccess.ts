@@ -70,7 +70,7 @@ export default (permission: any) =>
       (user) => user.permission.name === permission
     );
 
-    console.log("hasUserPermission()", hasUserPermission);
+    console.log("hasUserPermission", hasUserPermission);
 
     async function hasPermission(permission: any) {
       if (!permission || permission === "undefined") {

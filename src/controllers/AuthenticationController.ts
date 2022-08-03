@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const User = prisma.users;
+const Role = prisma.roles;
+import Constants from "../utils/constants";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -22,6 +24,25 @@ class AuthenticationController {
       res.send({
         user: userJson,
         token: jwtSignUser(userJson),
+      });
+
+      const userRole = await Role.findUnique({
+        where: { name: Constants.ROLE_AUTHENTICATED },
+      });
+
+      await prisma.roles_users.create({
+        data: {
+          role: {
+            connect: {
+              id: userRole?.id,
+            },
+          },
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
+        },
       });
     } catch (err) {
       res.status(400).send({
