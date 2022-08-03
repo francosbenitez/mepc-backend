@@ -4,7 +4,7 @@ import type { Request, Response, NextFunction } from "express";
 const prisma = new PrismaClient();
 const Permission = prisma.permissions;
 const Role = prisma.roles;
-const User = prisma.users;
+// const User = prisma.users;
 
 export default (permission: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
