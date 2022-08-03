@@ -23,6 +23,8 @@ export default (permission: any) =>
       },
     });
 
+    console.log("access", access);
+
     async function hasPermission(permission: any) {
       if (!permission || permission === "undefined") {
         return false;

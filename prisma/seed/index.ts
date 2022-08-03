@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { userData } from "./users";
+// import { userData } from "./users";
 import { roleData } from "./roles";
 import { permissionData } from "./permissions";
+import Constants from "../../src/utils/constants";
 
 const prisma = new PrismaClient();
 
@@ -22,9 +23,47 @@ async function main() {
     }
   };
 
-  await seedData(userData, prisma.users, "users");
+  // await seedData(userData, prisma.users, "users");
   await seedData(roleData, prisma.roles, "roles");
   await seedData(permissionData, prisma.permissions, "permissions");
+
+  const superAdminUser = await prisma.users.create({
+    data: {
+      username: "admin",
+      email: "admin@email.com",
+      password: "password",
+    },
+  });
+
+  const superAdminRole = await prisma.roles.findUnique({
+    where: { name: Constants.ROLE_SUPER_ADMIN },
+  });
+
+  const superAdminPermissions = await prisma.permissions.findMany({
+    where: {
+      name: {
+        in: [
+          Constants.PERMISSION_VIEW_ADMIN_DASHBOARD,
+          Constants.PERMISSION_VIEW_ALL_USERS,
+        ],
+      },
+    },
+  });
+
+  console.log("superAdminUser", superAdminUser);
+  console.log("superAdminRole", superAdminRole);
+  console.log("superAdminPermissions", superAdminPermissions);
+
+  // const articleAdded = await prisma.tags_articles.create({
+  //   data: { 1, 1 },
+  // });
+
+  // await prisma.roles_permissions.create({
+  //   data: {
+  //     superAdminUser.id, superAdminPermissions.id
+  //   }
+  // })
+
   console.log(`Seeding finished.`);
 }
 

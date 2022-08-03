@@ -67,7 +67,7 @@ model permissions {
 
 model roles {
   id          Int                 @id @default(autoincrement())
-  name        String
+  name        String              @unique
   description String
   users       roles_users[]
   roles       roles_permissions[]
