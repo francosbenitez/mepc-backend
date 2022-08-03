@@ -9,7 +9,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
       });
     } else {
       req.user = user;
-      console.log("req.user", req.user);
+      // console.log("req.user", req.user);
       next();
     }
   })(req, res, next);
