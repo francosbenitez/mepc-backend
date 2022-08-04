@@ -8,8 +8,8 @@ const app = express();
 // app.use("/api/", routes);
 route(app);
 
-const port = 8080;
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, () =>
-  console.log(`🚀 Server ready at: http://localhost:${port}`)
+app.listen(PORT, () =>
+  console.log(`🚀 Server ready at: http://localhost:${PORT}`)
 );
