@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "prisma generate",
-    "start": "ts-node src/index.ts",
+    "start": "node src/index.js",
     "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts"
   },
   "dependencies": {
