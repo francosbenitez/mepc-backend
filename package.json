@@ -2,8 +2,8 @@
   "name": "mepc-backend",
   "version": "1.0.0",
   "scripts": {
-    "build": "prisma generate",
-    "start": "node src/index.ts",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js",
     "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts"
   },
   "dependencies": {
