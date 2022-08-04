@@ -6,7 +6,7 @@
     "start": "node build/src/index.js",
     "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
     "migrate": "npx prisma migrate dev --name init",
-    "seed": "npx prisma db seed"
+    "seed": "node build/prisma/seed/index.js"
   },
   "dependencies": {
     "@prisma/client": "^4.1.1",
@@ -30,7 +30,6 @@
     "typescript": "^4.7.4"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed/index.ts",
-    "seed:prod": "node build/prisma/seed/index.js"
+    "seed": "ts-node prisma/seed/index.ts"
   }
 }
