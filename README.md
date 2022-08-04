@@ -4,7 +4,7 @@
 
 ## Code and Resources Used
 
-- **Main Technologies:** TypeScript, Express, MySQL, Prisma
+- **Main Technologies:** TypeScript, Express, PostgreSQL, Prisma
 
 ## Live Demo
 
