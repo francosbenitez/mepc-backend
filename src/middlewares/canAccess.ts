@@ -1,12 +1,13 @@
 import { sendErrorResponse } from "../utils/sendResponse";
 import { PrismaClient } from "@prisma/client";
-import type { Request, Response, NextFunction } from "express";
+import type { Response, NextFunction } from "express";
+import { IGetUserAuthInfoRequest } from "../types/custom";
 const prisma = new PrismaClient();
 const Role = prisma.roles;
 const User = prisma.users;
 
 export default (permission: any) =>
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
     // 1. We have to check if this user, who is provided by `req.user`, has permissions to the `permission` argument provided from the `routes` folder
     // The `roles` works an intermediary between `users` and `permissions`
     // 2. We have to access to the permissions of the user via the `roles_permissions` model
