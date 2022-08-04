@@ -2,10 +2,9 @@
   "compilerOptions": {
     "sourceMap": true,
     "outDir": "build",
-    "rootDir": "src",
     "strict": true,
     "lib": ["esnext"],
     "esModuleInterop": true
-  },
-  "files": ["src/types/types.d.ts"]
+  }
+  // "files": ["src/types/types.d.ts"]
 }
