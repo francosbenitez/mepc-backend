@@ -85,8 +85,8 @@ async function main() {
   console.log("Seeding authenticated user ...");
   const authenticatedUser = await prisma.users.create({
     data: {
-      username: "francosbenitez",
-      email: "francosbenitez@gmail.com",
+      username: "authenticated",
+      email: "authenticated@email.com",
       password: bcrypt.hashSync("password", 10),
     },
   });
