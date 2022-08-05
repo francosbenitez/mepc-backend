@@ -25,7 +25,9 @@
 - Change Sequelize ORM for Prisma ORM.
   - Given that Prisma has better support for TypeScript.
 - Implement:
-  - Admin CMS 
+  - Admin CMS
+    - The admin CMS will be in the route /admin
   - Authenticated CMS
     - To write posts.
       - In an URL, like "/authenticated/new-article
+      
