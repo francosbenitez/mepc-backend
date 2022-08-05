@@ -32,4 +32,4 @@
       - In an URL, like "/authenticated/new-article
 - IMPORTANT: Manage the posts/articles via LINKS, not via `text` or `HTML content`. 
   - What are accepted will be ***links***. The user will do ***requests*** putting a link to a Google Docs.
-      
+- Publicá -> Login view (if the user is not registered, it allows to go to the register view) -> Based on the `role` of the user, redirect to one specific view.  
