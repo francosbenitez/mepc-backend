@@ -97,7 +97,7 @@ async function main() {
   const authenticatedPermissions = await prisma.permissions.findMany({
     where: {
       name: {
-        in: [Constants.PERMISSION_VIEW_ARTICLES],
+        in: [Constants.PERMISSION_UPLOAD_ARTICLES],
       },
     },
   });

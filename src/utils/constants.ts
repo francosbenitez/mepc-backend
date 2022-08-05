@@ -4,5 +4,5 @@ export default {
 
   PERMISSION_VIEW_ALL_USERS: "view-all-users",
   PERMISSION_PUBLISH_ARTICLES: "publish-articles",
-  PERMISSION_VIEW_ARTICLES: "view-articles",
+  PERMISSION_UPLOAD_ARTICLES: "upload-articles",
 };

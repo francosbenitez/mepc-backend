@@ -10,4 +10,8 @@ export const permissionData: Prisma.permissionsCreateInput[] = [
     name: Constants.PERMISSION_VIEW_ALL_USERS,
     description: "",
   },
+  {
+    name: Constants.PERMISSION_UPLOAD_ARTICLES,
+    description: "",
+  },
 ];
