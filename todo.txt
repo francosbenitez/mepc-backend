@@ -30,4 +30,6 @@
   - Authenticated CMS
     - To write posts.
       - In an URL, like "/authenticated/new-article
+- IMPORTANT: Manage the posts/articles via LINKS, not via `text` or `HTML content`. 
+  - What are accepted will be ***links***. The user will do ***requests*** putting a link to a Google Docs.
       
