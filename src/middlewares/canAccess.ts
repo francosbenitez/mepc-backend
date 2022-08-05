@@ -50,6 +50,9 @@ export default (permission: any) =>
 
     const userPermissions = userRolePermissions[0].permissions;
 
+    // In this case, the 'permission' variable received at the top only can be a string.
+    // I think it's more suitable if instead of receiving permissions, we could receive 'roles'. That is, it would be: canAccess(['admin'])
+    // And, importantly, it should always receive an array, not a string!
     const hasUserPermission = userPermissions.some(
       (user) => user.permission.name === permission
     );
