@@ -12,17 +12,30 @@ class ArticlesController {
           : "";
       let articles = [];
 
+      let page =
+        req.query && typeof req.query.page === "string"
+          ? parseInt(req.query.page)
+          : 1;
+
       if (authorId) {
         articles = await Article.findMany({
+          skip: 10 * (page - 1),
+          take: 10,
           where: {
             authorId: authorId,
           },
         });
       } else {
-        articles = await Article.findMany();
+        articles = await Article.findMany({
+          skip: 10 * (page - 1),
+          take: 10,
+        });
       }
 
-      res.send(articles);
+      res.send({
+        data: articles,
+        current_page: page,
+      });
     } catch (err) {
       res.status(500).send({
         error: "An error has ocurred trying to get the articles: " + err,
