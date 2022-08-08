@@ -29,6 +29,17 @@ class ArticlesController {
         articles = await Article.findMany({
           skip: 10 * (page - 1),
           take: 10,
+          include: {
+            tags: {
+              select: {
+                tag: {
+                  select: {
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
         });
       }
 
