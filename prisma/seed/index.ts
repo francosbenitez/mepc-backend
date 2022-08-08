@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-// import { userData } from "./users";
 import { roleData } from "./roles";
 import { permissionData } from "./permissions";
 import Constants from "../../src/utils/constants";
@@ -24,11 +23,11 @@ async function main() {
     }
   };
 
-  // await seedData(userData, prisma.users, "users");
   await seedData(roleData, prisma.roles, "roles");
   await seedData(permissionData, prisma.permissions, "permissions");
 
-  const superAdminUser = await prisma.users.create({
+  console.log("Seeding admin user ...");
+  const adminUser = await prisma.users.create({
     data: {
       username: "admin",
       email: "admin@email.com",
@@ -36,15 +35,15 @@ async function main() {
     },
   });
 
-  const superAdminRole = await prisma.roles.findUnique({
-    where: { name: Constants.ROLE_SUPER_ADMIN },
+  const adminRole = await prisma.roles.findUnique({
+    where: { name: Constants.ROLE_ADMIN },
   });
 
-  const superAdminPermissions = await prisma.permissions.findMany({
+  const adminPermissions = await prisma.permissions.findMany({
     where: {
       name: {
         in: [
-          Constants.PERMISSION_VIEW_ADMIN_DASHBOARD,
+          Constants.PERMISSION_PUBLISH_ARTICLES,
           Constants.PERMISSION_VIEW_ALL_USERS,
         ],
       },
@@ -55,18 +54,18 @@ async function main() {
     data: {
       role: {
         connect: {
-          id: superAdminRole?.id,
+          id: adminRole?.id,
         },
       },
       user: {
         connect: {
-          id: superAdminUser.id,
+          id: adminUser.id,
         },
       },
     },
   });
 
-  for (const permission of superAdminPermissions) {
+  for (const permission of adminPermissions) {
     await prisma.roles_permissions.create({
       data: {
         permission: {
@@ -76,7 +75,59 @@ async function main() {
         },
         role: {
           connect: {
-            id: superAdminRole?.id,
+            id: adminRole?.id,
+          },
+        },
+      },
+    });
+  }
+
+  console.log("Seeding authenticated user ...");
+  const authenticatedUser = await prisma.users.create({
+    data: {
+      username: "authenticated",
+      email: "authenticated@email.com",
+      password: bcrypt.hashSync("password", 10),
+    },
+  });
+
+  const authenticatedRole = await prisma.roles.findUnique({
+    where: { name: Constants.ROLE_AUTHENTICATED },
+  });
+  const authenticatedPermissions = await prisma.permissions.findMany({
+    where: {
+      name: {
+        in: [Constants.PERMISSION_UPLOAD_ARTICLES],
+      },
+    },
+  });
+
+  await prisma.roles_users.create({
+    data: {
+      role: {
+        connect: {
+          id: authenticatedRole?.id,
+        },
+      },
+      user: {
+        connect: {
+          id: authenticatedUser.id,
+        },
+      },
+    },
+  });
+
+  for (const permission of authenticatedPermissions) {
+    await prisma.roles_permissions.create({
+      data: {
+        permission: {
+          connect: {
+            id: permission.id,
+          },
+        },
+        role: {
+          connect: {
+            id: authenticatedRole?.id,
           },
         },
       },
