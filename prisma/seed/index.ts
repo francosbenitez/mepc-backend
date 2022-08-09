@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { roleData } from "./roles";
 import { permissionData } from "./permissions";
 import { articleData } from "./articles";
+import { tagData } from "./tags";
 import Constants from "../../src/utils/constants";
 import bcrypt from "bcrypt";
 
@@ -135,7 +136,23 @@ async function main() {
     });
   }
 
+  await seedData(tagData, prisma.tags, "tags");
   await seedData(articleData, prisma.articles, "articles");
+
+  await prisma.tags_articles.create({
+    data: {
+      tag: {
+        connect: {
+          id: 1,
+        },
+      },
+      article: {
+        connect: {
+          id: 1,
+        },
+      },
+    },
+  });
 
   console.log(`Seeding finished.`);
 }
