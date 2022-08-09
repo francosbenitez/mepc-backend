@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { roleData } from "./roles";
 import { permissionData } from "./permissions";
+import { articleData } from "./articles";
 import Constants from "../../src/utils/constants";
 import bcrypt from "bcrypt";
 
@@ -25,6 +26,7 @@ async function main() {
 
   await seedData(roleData, prisma.roles, "roles");
   await seedData(permissionData, prisma.permissions, "permissions");
+  await seedData(articleData, prisma.articles, "articles");
 
   console.log("Seeding admin user ...");
   const adminUser = await prisma.users.create({
