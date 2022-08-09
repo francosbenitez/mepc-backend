@@ -26,7 +26,6 @@ async function main() {
 
   await seedData(roleData, prisma.roles, "roles");
   await seedData(permissionData, prisma.permissions, "permissions");
-  await seedData(articleData, prisma.articles, "articles");
 
   console.log("Seeding admin user ...");
   const adminUser = await prisma.users.create({
@@ -135,6 +134,8 @@ async function main() {
       },
     });
   }
+
+  await seedData(articleData, prisma.articles, "articles");
 
   console.log(`Seeding finished.`);
 }
