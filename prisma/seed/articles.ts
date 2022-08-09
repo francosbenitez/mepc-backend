@@ -10,6 +10,14 @@ export const articleData: Prisma.articlesCreateInput[] = [
         id: 1,
       },
     },
+    tags: {
+      connect: {
+        articleId_tagId: {
+          tagId: 1,
+          articleId: 1,
+        },
+      },
+    },
   },
   {
     title: "Title 2",
