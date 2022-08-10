@@ -58,6 +58,18 @@ class AuthenticationController {
         where: {
           email: email,
         },
+        include: {
+          roles: {
+            select: {
+              role: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
+        },
       });
       if (!user) {
         return res.status(403).send({
