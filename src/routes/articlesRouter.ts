@@ -10,7 +10,7 @@ router.get("/articles", ArticlesController.index);
 router.post(
   "/articles",
   isAuthenticated,
-  canAccess(Constants.PERMISSION_PUBLISH_ARTICLES),
+  canAccess(Constants.PERMISSION_UPLOAD_ARTICLES),
   ArticlesController.create
 );
 router.get("/articles/:articleId", ArticlesController.show);
