@@ -94,6 +94,7 @@ class ArticlesController {
         },
         select: {
           id: true,
+          slug: true,
           title: true,
           content: true,
           published: true,
