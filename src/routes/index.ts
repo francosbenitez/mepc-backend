@@ -4,9 +4,11 @@ import articlesRouter from "./articlesRouter";
 import authRouter from "./authRouter";
 import commentsRouter from "./commentsRouter";
 import tagsRouter from "./tagsRouter";
+import cors from "cors";
 
 export default (app: any) => {
   app.use(express.json());
+  app.use(cors());
 
   app.use("/api", authRouter);
   app.use("/api", articlesRouter);

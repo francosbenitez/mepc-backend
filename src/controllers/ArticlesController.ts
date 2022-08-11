@@ -34,6 +34,7 @@ class ArticlesController {
               select: {
                 tag: {
                   select: {
+                    id: true,
                     name: true,
                   },
                 },
