@@ -13,7 +13,7 @@ router.post(
   canAccess(Constants.PERMISSION_UPLOAD_ARTICLES),
   ArticlesController.create
 );
-router.get("/articles/:articleId", ArticlesController.show);
+router.get("/articles/:articleSlug", ArticlesController.show);
 router.put(
   "/articles/:articleId/publish",
   isAuthenticated,

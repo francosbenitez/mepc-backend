@@ -87,10 +87,10 @@ class ArticlesController {
 
   async show(req: Request, res: Response) {
     try {
-      const articleId = parseInt(req.params.articleId);
+      const articleSlug = req.params.articleSlug;
       const article = await Article.findUnique({
         where: {
-          id: articleId,
+          slug: articleSlug,
         },
         select: {
           id: true,
