@@ -74,6 +74,13 @@ class ArticlesController {
           id: articleId,
         },
         include: {
+          author: {
+            select: {
+              id: true,
+              email: true,
+              username: true,
+            },
+          },
           comment: true,
         },
       });
