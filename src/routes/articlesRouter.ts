@@ -14,6 +14,11 @@ router.post(
   ArticlesController.create
 );
 router.get("/articles/:articleId", ArticlesController.show);
-router.put("/articles/:articleId/publish", ArticlesController.publish);
+router.put(
+  "/articles/:articleId/publish",
+  isAuthenticated,
+  canAccess(Constants.PERMISSION_PUBLISH_ARTICLES),
+  ArticlesController.publish
+);
 
 export default router;
