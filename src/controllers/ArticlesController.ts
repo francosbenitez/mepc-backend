@@ -73,7 +73,11 @@ class ArticlesController {
         where: {
           id: articleId,
         },
-        include: {
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          published: true,
           author: {
             select: {
               id: true,
