@@ -97,6 +97,17 @@ class AuthenticationController {
       });
     }
   }
+
+  async index(req: Request, res: Response) {
+    try {
+      const users = await User.findMany();
+      res.send(users);
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to get the users: " + err,
+      });
+    }
+  }
 }
 
 export default new AuthenticationController();
