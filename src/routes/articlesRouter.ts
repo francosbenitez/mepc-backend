@@ -14,5 +14,6 @@ router.post(
   ArticlesController.create
 );
 router.get("/articles/:articleId", ArticlesController.show);
+router.put("/articles/:articleId/publish", ArticlesController.publish);
 
 export default router;

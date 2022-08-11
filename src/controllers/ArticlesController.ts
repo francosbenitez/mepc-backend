@@ -66,6 +66,25 @@ class ArticlesController {
     }
   }
 
+  async publish(req: Request, res: Response) {
+    try {
+      const articleId = parseInt(req.params.articleId);
+      const article = await Article.update({
+        where: {
+          id: articleId,
+        },
+        data: {
+          published: true,
+        },
+      });
+      res.send(article);
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to update the article: " + err,
+      });
+    }
+  }
+
   async show(req: Request, res: Response) {
     try {
       const articleId = parseInt(req.params.articleId);
