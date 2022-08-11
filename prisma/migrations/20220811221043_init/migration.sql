@@ -11,6 +11,7 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "articles" (
     "id" SERIAL NOT NULL,
+    "slug" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "published" BOOLEAN NOT NULL DEFAULT false,
@@ -96,6 +97,9 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "articles_slug_key" ON "articles"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "comments_articleId_key" ON "comments"("articleId");
