@@ -101,7 +101,14 @@ class AuthenticationController {
   async verifyToken(req: Request, res: Response) {
     try {
       let token = req.headers["authorization"];
-      token = token ? token.replace(/^Bearer\s+/, "") : "";
+      // token = token ? token.replace(/^Bearer\s+/, "") : "";
+
+      if (
+        token &&
+        (token.startsWith("Bearer ") || token.startsWith("Token "))
+      ) {
+        token = token.substring(7, token.length);
+      }
 
       if (token) {
         jwt.verify(token, "secret", (err, decoded) => {
