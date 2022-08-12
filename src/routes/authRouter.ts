@@ -19,5 +19,6 @@ router.get(
   canAccess(Constants.PERMISSION_VIEW_ALL_USERS),
   AuthenticationController.index
 );
+router.post("/verify-token", AuthenticationController.verifyToken);
 
 export default router;

@@ -98,6 +98,42 @@ class AuthenticationController {
     }
   }
 
+  async verifyToken(req: Request, res: Response) {
+    try {
+      let token = req.headers["authorization"];
+      token = token ? token.replace(/^Bearer\s+/, "") : "";
+
+      if (token) {
+        jwt.verify(token, "secret", (err, decoded) => {
+          if (err) {
+            return res.json({
+              success: false,
+              message: "Token is not valid",
+            });
+          }
+
+          (<any>req).decoded = decoded;
+
+          res.json({
+            success: true,
+            message: "Token verified successfully",
+          });
+
+          // next();
+        });
+      } else {
+        return res.json({
+          success: false,
+          message: "Token not provided",
+        });
+      }
+    } catch (err) {
+      res.status(500).send({
+        error: "An error has ocurred trying to verify the token: " + err,
+      });
+    }
+  }
+
   async index(req: Request, res: Response) {
     try {
       const users = await User.findMany();
