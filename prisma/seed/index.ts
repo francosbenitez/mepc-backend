@@ -3,6 +3,7 @@ import { roleData } from "./roles";
 import { permissionData } from "./permissions";
 import { articleData } from "./articles";
 import { tagData } from "./tags";
+import { commentData } from "./comments";
 import Constants from "../../src/utils/constants";
 import bcrypt from "bcrypt";
 
@@ -138,6 +139,7 @@ async function main() {
 
   await seedData(tagData, prisma.tags, "tags");
   await seedData(articleData, prisma.articles, "articles");
+  await seedData(commentData, prisma.comments, "comments");
 
   await prisma.tags_articles.create({
     data: {

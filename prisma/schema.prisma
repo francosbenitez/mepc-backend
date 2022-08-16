@@ -25,7 +25,7 @@ model articles {
   authorId  Int
   author    users           @relation(fields: [authorId], references: [id])
   tags      tags_articles[]
-  comment   comments?
+  comment   comments[]
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 }
@@ -35,7 +35,7 @@ model comments {
   name      String
   text      String
   article   articles @relation(fields: [articleId], references: [id])
-  articleId Int      @unique
+  articleId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
