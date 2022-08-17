@@ -105,7 +105,18 @@ class ArticlesController {
               username: true,
             },
           },
-          comment: true,
+          comment: {
+            select: {
+              id: true,
+              name: true,
+              text: true,
+              user: {
+                select: {
+                  username: true,
+                },
+              },
+            },
+          },
         },
       });
       res.send(article);
