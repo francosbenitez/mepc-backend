@@ -6,6 +6,7 @@ const Comment = prisma.comments;
 class CommentsController {
   async create(req: Request, res: Response) {
     try {
+      console.log("req.user", req.user);
       const articleId = parseInt(req.params.articleId);
       const { name, text } = req.body;
       const comment = await Comment.create({
