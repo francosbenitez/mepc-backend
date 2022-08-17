@@ -28,6 +28,7 @@ CREATE TABLE "comments" (
     "name" TEXT NOT NULL,
     "text" TEXT NOT NULL,
     "articleId" INTEGER NOT NULL,
+    "authorId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -102,9 +103,6 @@ CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
 CREATE UNIQUE INDEX "articles_slug_key" ON "articles"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "comments_articleId_key" ON "comments"("articleId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "tags_name_key" ON "tags"("name");
 
 -- CreateIndex
@@ -118,6 +116,9 @@ ALTER TABLE "articles" ADD CONSTRAINT "articles_authorId_fkey" FOREIGN KEY ("aut
 
 -- AddForeignKey
 ALTER TABLE "comments" ADD CONSTRAINT "comments_articleId_fkey" FOREIGN KEY ("articleId") REFERENCES "articles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "comments" ADD CONSTRAINT "comments_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "tags_articles" ADD CONSTRAINT "tags_articles_articleId_fkey" FOREIGN KEY ("articleId") REFERENCES "articles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

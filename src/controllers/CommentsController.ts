@@ -13,6 +13,7 @@ class CommentsController {
         data: {
           name: name,
           text: text,
+          authorId: 1,
           articleId: articleId,
         },
       });

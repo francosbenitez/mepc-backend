@@ -13,6 +13,7 @@ model users {
   username String        @unique
   password String
   articles articles[]
+  comments comments[]
   roles    roles_users[]
 }
 
@@ -25,7 +26,7 @@ model articles {
   authorId  Int
   author    users           @relation(fields: [authorId], references: [id])
   tags      tags_articles[]
-  comment   comments?
+  comment   comments[]
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 }
@@ -35,7 +36,9 @@ model comments {
   name      String
   text      String
   article   articles @relation(fields: [articleId], references: [id])
-  articleId Int      @unique
+  articleId Int
+  author    users    @relation(fields: [authorId], references: [id])
+  authorId  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
