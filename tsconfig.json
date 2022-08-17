@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["*"]
+    },
     "sourceMap": true,
     "outDir": "build",
     "strict": true,

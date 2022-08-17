@@ -6,9 +6,9 @@ const Article = prisma.articles;
 class ArticlesController {
   async index(req: Request, res: Response) {
     try {
-      const authorId =
-        req.query && typeof req.query.author === "string"
-          ? parseInt(req.query.author)
+      const userId =
+        req.query && typeof req.query.user === "string"
+          ? parseInt(req.query.user)
           : "";
       let articles = [];
 
@@ -17,12 +17,12 @@ class ArticlesController {
           ? parseInt(req.query.page)
           : 1;
 
-      if (authorId) {
+      if (userId) {
         articles = await Article.findMany({
           skip: 10 * (page - 1),
           take: 10,
           where: {
-            authorId: authorId,
+            userId: userId,
           },
         });
       } else {
@@ -98,14 +98,25 @@ class ArticlesController {
           title: true,
           content: true,
           published: true,
-          author: {
+          user: {
             select: {
               id: true,
               email: true,
               username: true,
             },
           },
-          comment: true,
+          comment: {
+            select: {
+              id: true,
+              name: true,
+              text: true,
+              user: {
+                select: {
+                  username: true,
+                },
+              },
+            },
+          },
         },
       });
       res.send(article);
