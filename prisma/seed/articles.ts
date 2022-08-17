@@ -6,7 +6,7 @@ export const articleData: Prisma.articlesCreateInput[] = [
     title: "Title 1",
     content: "Content 1",
     published: false,
-    author: {
+    user: {
       connect: {
         id: 1,
       },
@@ -17,7 +17,7 @@ export const articleData: Prisma.articlesCreateInput[] = [
     title: "Title 2",
     content: "Content 2",
     published: true,
-    author: {
+    user: {
       connect: {
         id: 2,
       },
