@@ -4,6 +4,11 @@ export const commentData: Prisma.commentsCreateInput[] = [
   {
     name: "",
     text: "¡Muy bueno!",
+    user: {
+      connect: {
+        id: 1,
+      },
+    },
     article: {
       connect: {
         id: 1,
@@ -13,6 +18,11 @@ export const commentData: Prisma.commentsCreateInput[] = [
   {
     name: "",
     text: "¡Interesante!",
+    user: {
+      connect: {
+        id: 2,
+      },
+    },
     article: {
       connect: {
         id: 2,
@@ -22,6 +32,11 @@ export const commentData: Prisma.commentsCreateInput[] = [
   {
     name: "",
     text: "¡Muy crack!",
+    user: {
+      connect: {
+        id: 2,
+      },
+    },
     article: {
       connect: {
         id: 2,
