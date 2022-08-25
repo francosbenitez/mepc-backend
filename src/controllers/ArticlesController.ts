@@ -22,6 +22,62 @@ class ArticlesController {
           skip: 10 * (page - 1),
           take: 10,
           where: {
+            published: true,
+            userId: userId,
+          },
+        });
+      } else {
+        articles = await Article.findMany({
+          skip: 10 * (page - 1),
+          take: 10,
+          where: {
+            published: true,
+          },
+          include: {
+            tags: {
+              select: {
+                tag: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      res.send({
+        data: articles,
+        current_page: page,
+      });
+    } catch (err) {
+      res.status(500).send({
+        error:
+          "An error has ocurred trying to get the published articles: " + err,
+      });
+    }
+  }
+
+  async indexAll(req: Request, res: Response) {
+    try {
+      const userId =
+        req.query && typeof req.query.user === "string"
+          ? parseInt(req.query.user)
+          : "";
+      let articles = [];
+
+      let page =
+        req.query && typeof req.query.page === "string"
+          ? parseInt(req.query.page)
+          : 1;
+
+      if (userId) {
+        articles = await Article.findMany({
+          skip: 10 * (page - 1),
+          take: 10,
+          where: {
             userId: userId,
           },
         });
@@ -50,7 +106,7 @@ class ArticlesController {
       });
     } catch (err) {
       res.status(500).send({
-        error: "An error has ocurred trying to get the articles: " + err,
+        error: "An error has ocurred trying to get all the articles: " + err,
       });
     }
   }

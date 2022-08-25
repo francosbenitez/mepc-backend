@@ -7,6 +7,12 @@ import Constants from "../utils/constants";
 const router = express.Router();
 
 router.get("/articles", ArticlesController.index);
+router.get(
+  "/admin/articles",
+  isAuthenticated,
+  canAccess(Constants.PERMISSION_PUBLISH_ARTICLES),
+  ArticlesController.indexAll
+);
 router.post(
   "/articles",
   isAuthenticated,
