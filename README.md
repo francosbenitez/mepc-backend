@@ -1,4 +1,4 @@
-# MEPC Backend
+# mepc-backend
 
 - The API for [mepc.app](https://github.com/francosbenitez/mepc.app).
 
